@@ -1,0 +1,10 @@
+index:
+	gcc mercado.c -c
+	gcc main.c mercado.o -o teste
+compila_roda:
+	gcc mercado.c -c
+	gcc main.c mercado.o -o teste
+	./teste
+clean:
+	rm mercado.o
+	rm teste
