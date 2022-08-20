@@ -1,0 +1,163 @@
+/*
+Lista 01 (matriz)
+Data 15/05/2022
+Matheus Fagundes de Oliveira (matheusoliveira.aluno@unipampa.edu.br)
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+int **criaMatriz(int m, int n);
+void leiaMatriz(int **mat, int m, int n);
+int somaMatriz(int **mat, int m, int n);
+void LiberaMatriz(int **mat, int m);
+int *colunaMat(int **mat, int m, int n, int ncoluna);
+
+int main(int argc, char* argv[]){
+  int l = 0, c = 0, nc = 0;
+  int **matriz = NULL;
+  int *vet = NULL;
+
+
+  int opc = 0;
+    while (opc != 6)
+    {
+
+        printf("\n\t---MENU---\n ");
+        printf("1. Criar matriz\n ");
+        printf("2. Realizar Leitura da matriz\n ");
+        printf("3. soma dos elementos da matriz\n ");
+        printf("4. Retornar um Vetor\n ");
+        printf("5. Limpar matriz\n ");
+        printf("6. Sair do sistema\n");
+        printf("Opcao: ");
+        scanf("%i", &opc);
+        printf("\n");
+
+        switch (opc)
+        {
+        case 1:
+         printf("informe quantas linhas a matriz tera: ");
+         scanf("%d", &l);
+         setbuf(stdin,NULL);
+         printf("Informe quantas colunas a matriz tera: ");
+         scanf("%d", &c);
+        setbuf(stdin,NULL);
+        matriz = criaMatriz(l,c);
+            break;
+        case 2:
+        leiaMatriz(matriz, l, c);
+            printf("\n");
+            break;
+        case 3:
+        somaMatriz(matriz, l, c);
+          printf("\n");
+            break;
+        case 4:
+         printf("Qual coluna deseja imprimir como vetor: ");
+         scanf("%d", &nc);
+         vet = colunaMat(matriz, l, c, nc);
+         printf("\n");
+            break;
+        case 5:
+            LiberaMatriz(matriz, l);
+            printf("\n");
+            break;
+        case 6:
+
+            printf("\n ***SAINDO DO SISTEMA*** \n");
+            break;
+            printf("\n");
+          default:
+
+            printf("Opção Inválida!\n");
+        }
+    }
+
+  return 0;
+}
+
+//CRIAR MATRIZ
+int **criaMatriz(int m, int n){
+  int i, j, **matriz;
+
+  matriz = (int**)malloc(m * sizeof(int*));
+    if (matriz == NULL) {
+      printf ("Memoria insuficiente!\n");
+      exit (1);
+  }
+   for(i=0; i<m; i++)
+      matriz[i] = (int*)malloc(n * sizeof(int));
+    if (matriz == NULL) {
+      printf ("Memoria insuficiente!\n");
+      exit (1);
+    }
+
+  srand(time(NULL));
+  for (i = 0; i<m;  i++){
+      for(j=0; j<n; j++)
+        matriz[i][j] = rand()%100;
+      }
+  printf("\n\t**MATRIZ CRIADA**\n");
+  printf("\n");
+  return matriz;
+}
+
+//LEIA MATRIZ
+void leiaMatriz(int **mat, int m, int n){
+    int i, j;
+    for(i=0; i<m; i++){
+        for(j=0; j<n; j++)
+        printf("%d ", mat[i][j]);
+        printf("\n");
+    }
+}
+
+//SOMA MATRIZ
+int somaMatriz(int **mat, int m, int n){
+ int soma = 0, i, j;
+
+  printf("\n---SOMANDO MATRIZ---\n");
+  for (i=0; i<m; i++){
+    for (j=0; j<n; j++){
+       soma = soma + mat[i][j];
+     }
+  }
+  printf("\nA soma da matriz :%d", soma);
+  printf("\n");
+
+  return soma;
+}
+
+//LIBERA MATRIZ
+void LiberaMatriz(int **mat, int m){
+   int i;
+   for(i=0; i<m; i++){
+     free(mat[i]);
+     }
+     free(mat);
+     mat = NULL;
+     if(mat == NULL){
+     printf("\nMemoria foi liberada!!\n");
+     }else{
+     printf("Memoria não liberada!\n ");
+     }
+}
+
+//RETORNAR VETOR
+int *colunaMat(int **mat, int m, int n, int ncoluna){
+int *vet;
+int i, j ;
+
+vet = (int*)malloc(ncoluna * sizeof(int));
+
+printf("O vetor e: \n");
+for(i=0; i<m; i++){
+  for(j=0; j<ncoluna; j++)
+    vet[i] = mat[i][j];
+    printf("%d ", vet[i]);
+
+}
+return vet;
+}
+
