@@ -1,0 +1,14 @@
+ index:
+	gcc lista.c -c
+	gcc mainlista.c lista.o -o teste
+        ./teste
+index:
+	gcc lista.c -c
+	gcc mainlista.c lista.o -o teste
+compila_roda:
+	gcc lista.c -c
+	gcc mainlista.c lista.o -o teste
+	./teste
+clean:
+	rm lista.o
+	rm teste
